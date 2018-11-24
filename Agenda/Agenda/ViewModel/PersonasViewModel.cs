@@ -2,6 +2,7 @@
 using Agenda.Models;
 using Agenda.Views;
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -41,31 +42,15 @@ namespace Agenda.ViewModel
 
             this.PersonasLista = new ObservableCollection<Persona>();
 
-            this.ResetList();
+            //this.ResetList();
 
-            //this.PersonasLista.Add(new Persona
-            //{
-            //    Nombres = "Carlos",
-            //    Apellidos = "Ortega",
-            //    Celular = "09181512515",
-            //    DOB = new DateTime(1980, 11, 5)
-            //});
-
-            //this.PersonasLista.Add(new Persona
-            //{
-            //    Nombres = "Maria",
-            //    Apellidos = "Ortega",
-            //    Celular = "09815841",
-            //    DOB = new DateTime(1995, 12, 14)
-            //});
-
-            //this.PersonasLista.Add(new Persona
-            //{
-            //    Nombres = "Cristian",
-            //    Apellidos = "Ximenez",
-            //    Celular = "098990084",
-            //    DOB = new DateTime(2000, 2, 3)
-            //});
+            this.PersonasLista.Add(new Persona
+            {
+                Nombres = "Carlos",
+                Apellidos = "Ortega",
+                Celular = "09181512515",
+                DOB = new DateTime(1980, 11, 5)
+            });
         }
 
         private async void ResetList()

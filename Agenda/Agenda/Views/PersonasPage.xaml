@@ -21,11 +21,11 @@
         <StackLayout BindingContext="{Binding PersonasLista}">
             <ListView ItemsSource="{Binding PersonasLista}" 
                       SeparatorVisibility="None"
+					  HasUnevenRows="true" 
                       BackgroundColor="Silver">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Nombres}"/>
-                        <!--<ViewCell>
+                        <ViewCell>
                             <Frame CornerRadius="20"
                                 HasShadow="true"
                                 Margin="5">
@@ -37,7 +37,7 @@
 
                                     <StackLayout Grid.Column="0">
                                         <Label FontAttributes="Bold" TextColor="Black" Text="{Binding Nombres}"/>
-                                        <Label Text="{Binding Apellidos}"/>
+                                        <Label FontAttributes="Bold" TextColor="Black" Text="{Binding Apellidos}"/>
                                     </StackLayout>
 
                                     <StackLayout Grid.Column="1">
@@ -47,7 +47,7 @@
 
                                 </Grid>
                             </Frame>
-                        </ViewCell> -->
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
