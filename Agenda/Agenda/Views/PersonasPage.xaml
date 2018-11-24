@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Agenda"
+             x:Class="Agenda.Views.PersonasPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Command="{Binding PersonasLista.AddCommand}"
+            Name="Añadir"
+           >
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="plus" />
+                    <On Platform="UWP" Value="Assets/plus.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding PersonasLista}">
+            <ListView ItemsSource="{Binding PersonasLista}" 
+                      SeparatorVisibility="None"
+                      BackgroundColor="Silver">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Nombres}"/>
+                        <!--<ViewCell>
+                            <Frame CornerRadius="20"
+                                HasShadow="true"
+                                Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout Grid.Column="0">
+                                        <Label FontAttributes="Bold" TextColor="Black" Text="{Binding Nombres}"/>
+                                        <Label Text="{Binding Apellidos}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="{Binding Celular}" Grid.Column="1"/>
+                                        <Label Text="{Binding DOB, StringFormat='{0:yyyy-MM-dd}'}"/>
+                                    </StackLayout>
+
+                                </Grid>
+                            </Frame>
+                        </ViewCell> -->
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
