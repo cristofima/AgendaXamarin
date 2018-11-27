@@ -19,6 +19,11 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding PersonasLista}">
+            <SearchBar HeightRequest="48"
+                       Text="{Binding Filter,Mode=TwoWay}"
+                       Placeholder="Buscar por nombres o apellidos"
+                       SearchCommand="{Binding SearchCommand}"/>
+            
             <ListView ItemsSource="{Binding PersonasLista}" 
                       SeparatorVisibility="None"
 					  HasUnevenRows="true" 
@@ -29,6 +34,9 @@
                             <Frame CornerRadius="20"
                                 HasShadow="true"
                                 Margin="5">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectCommand}"/>
+                                </Frame.GestureRecognizers>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />

@@ -19,13 +19,25 @@ namespace Agenda.ViewModel
 
         #region Atributos
 
-        private ObservableCollection<Persona> personasLista;
+        private ObservableCollection<PersonaItemViewModel> personasLista;
+        private string filter;
 
         #endregion Atributos
 
         #region Propiedades
+        public string Filter
+        {
+            get
+            {
+                return this.filter;
+            }
+            set
+            {
+                SetValue(ref this.filter, value);
+            }
+        }
 
-        public ObservableCollection<Persona> PersonasLista
+        public ObservableCollection<PersonaItemViewModel> PersonasLista
         {
             get { return personasLista; }
             set
@@ -40,19 +52,13 @@ namespace Agenda.ViewModel
         {
             _sqliteService = new SQliteService();
 
-            this.PersonasLista = new ObservableCollection<Persona>();
+            this.PersonasLista = new ObservableCollection<PersonaItemViewModel>();
 
-            //this.ResetList();
-
-            this.PersonasLista.Add(new Persona
-            {
-                Nombres = "Carlos",
-                Apellidos = "Ortega",
-                Celular = "09181512515",
-                DOB = new DateTime(1980, 11, 5)
-            });
+            this.ResetList();
+            this.InitEventos();
         }
 
+        #region Metodos
         private async void ResetList()
         {
             var result = await _sqliteService.GetPersonasAsync();
@@ -61,9 +67,22 @@ namespace Agenda.ViewModel
 
             foreach (var item in result)
             {
-                PersonasLista.Add(item);
+                PersonasLista.Add(new PersonaItemViewModel(item));
+            }
+        } 
+
+        private void FilterList()
+        {
+            if (string.IsNullOrEmpty(this.Filter))
+            {
+                
+            }
+            else
+            {
+                string auxFilter = this.Filter.ToLower().Trim();
             }
         }
+        #endregion
 
         #region Comandos
 
@@ -75,6 +94,14 @@ namespace Agenda.ViewModel
             }
         }
 
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand(FilterList);
+            }
+        }
+
         private async void GoPersona()
         {
             MainViewModel.GetInstance().Persona = new PersonaViewModel();
@@ -82,5 +109,17 @@ namespace Agenda.ViewModel
         }
 
         #endregion Comandos
+
+        #region Eventos
+        private void InitEventos()
+        {
+            MessagingCenter.Subscribe<string>("App", "ResetList", (sender) =>
+            {
+                this.ResetList();
+            });
+        }
+        #endregion
+
+
     }
 }

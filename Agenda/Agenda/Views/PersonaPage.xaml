@@ -1,10 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Datos de la Persona"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
              x:Class="Agenda.Views.PersonaPage">
     <ContentPage.Content>
-        <StackLayout>
-            
+        <StackLayout Padding="10" BindingContext="{Binding Persona}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Nombres"/>
+                <Entry Grid.Column="1" Text="{Binding Persona.Nombres}"/>
+
+                <Label Text="Apellidos" Grid.Row="1" Grid.Column="0"/>
+                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Persona.Apellidos}"/>
+
+                <Label Text="Celular" Grid.Row="2" Grid.Column="0"/>
+                <Entry Grid.Row="2" Grid.Column="1" Keyboard="Numeric" Text="{Binding Persona.Celular}"/>
+
+                <Label Text="Fecha Nacimiento" Grid.Row="3" Grid.Column="0"/>
+                <DatePicker Grid.Row="3" Grid.Column="1" Date="{Binding Persona.DOB}"/>
+            </Grid>
+            <Button Text="Guardar" Command="{Binding SaveCommand}"/>
+            <Button Text="Eliminar" IsVisible="{Binding IsDeleteVisible}" Command="{Binding DeleteCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

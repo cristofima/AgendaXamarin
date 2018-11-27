@@ -14,5 +14,16 @@ namespace Agenda.Models
         public string Apellidos { get; set; }
         public string Celular { get; set; }
         public DateTime DOB { get; set; }
+
+        public Persona() { }
+
+        public Persona(Persona per)
+        {
+            this.Id = per.Id;
+            this.Nombres = per.Nombres;
+            this.Apellidos = per.Apellidos;
+            this.Celular = per.Celular;
+            this.DOB = per.DOB;
+        }
     }
 }
