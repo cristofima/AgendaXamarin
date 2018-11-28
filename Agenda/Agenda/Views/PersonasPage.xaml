@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             xmlns:bh="clr-namespace:Agenda.Behaviors"
              Title="Agenda"
              x:Class="Agenda.Views.PersonasPage">
     <ContentPage.ToolbarItems>
@@ -22,11 +23,18 @@
             <SearchBar HeightRequest="48"
                        Text="{Binding Filter,Mode=TwoWay}"
                        Placeholder="Buscar por nombres o apellidos"
-                       SearchCommand="{Binding SearchCommand}"/>
-            
+                       SearchCommand="{Binding SearchCommand}">
+                <SearchBar.Behaviors>
+                    <bh:EventToCommandBehavior  EventName="TextChanged" Command="{Binding SearchCommand}"/>
+                </SearchBar.Behaviors>
+            </SearchBar>
+
             <ListView ItemsSource="{Binding PersonasLista}" 
                       SeparatorVisibility="None"
 					  HasUnevenRows="true" 
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsRefreshing,Mode=TwoWay}"
+                      RefreshCommand="{Binding RefreshCommand}"
                       BackgroundColor="Silver">
                 <ListView.ItemTemplate>
                     <DataTemplate>

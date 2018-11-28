@@ -24,12 +24,24 @@ namespace Agenda.ViewModel
 
         private ObservableCollection<PersonaItemViewModel> personasLista;
         private string filter;
+        private bool isRefreshing;
 
         #endregion Atributos
 
         #region Propiedades
         private List<Persona> PeopleList { get; set; }
 
+        private bool IsRefreshing
+        {
+            get
+            {
+                return isRefreshing;
+            }
+            set
+            {
+                SetValue(ref isRefreshing, value);
+            }
+        }
         public string Filter
         {
             get
@@ -66,6 +78,7 @@ namespace Agenda.ViewModel
         #region Metodos
         private async void ResetList()
         {
+            this.IsRefreshing = true;
             this.PeopleList = await _sqliteService.GetPersonasAsync();
 
             this.PersonasLista.Clear();
@@ -74,6 +87,8 @@ namespace Agenda.ViewModel
             {
                 PersonasLista.Add(new PersonaItemViewModel(item));
             }
+
+            this.IsRefreshing = false;
         }
 
         private IEnumerable<PersonaItemViewModel> ToPersonaItemViewModel()
@@ -124,6 +139,14 @@ namespace Agenda.ViewModel
             get
             {
                 return new RelayCommand(FilterList);
+            }
+        }
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(ResetList);
             }
         }
 
