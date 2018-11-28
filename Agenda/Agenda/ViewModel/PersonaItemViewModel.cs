@@ -13,6 +13,8 @@ namespace Agenda.ViewModel
     {
         public PersonaItemViewModel(Persona per) : base(per) { }
 
+        public PersonaItemViewModel() { }
+
         #region Comandos
         public ICommand SelectCommand
         {
