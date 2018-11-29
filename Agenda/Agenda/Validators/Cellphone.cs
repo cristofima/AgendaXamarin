@@ -15,7 +15,7 @@ namespace Agenda.Validators
             }
 
             var str = value as string;
-            var regex = new Regex(@"09[0-9]{8}", RegexOptions.IgnoreCase);
+            var regex = new Regex(@"^09[0-9]{8}$");
 
             return regex.IsMatch(str);
         }

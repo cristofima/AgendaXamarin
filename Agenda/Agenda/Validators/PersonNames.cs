@@ -17,7 +17,7 @@ namespace Agenda.Validators
 
             var str = value as string;
             
-            var regex = new Regex(@"^([a-zA-ZñÑ\s])$");
+            var regex = new Regex(@"^[A-ZÑáéíóú\s]{5,30}$", RegexOptions.IgnoreCase);
 
             return regex.IsMatch(str);
         }
