@@ -76,6 +76,12 @@ namespace Agenda.ViewModel
         }
 
         #region Metodos
+        private async void GoPreferences()
+        {
+            MainViewModel.GetInstance().Preferences = new PreferencesViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new PreferencesPage());
+        }
+
         private async void ResetList()
         {
             this.IsRefreshing = true;
@@ -125,6 +131,14 @@ namespace Agenda.ViewModel
         #endregion
 
         #region Comandos
+
+        public ICommand GoPreferencesCommand
+        {
+            get
+            {
+                return new RelayCommand(GoPreferences);
+            }
+        }
 
         public ICommand AddCommand
         {

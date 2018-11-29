@@ -2,30 +2,54 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Datos de la Persona"
+             xmlns:bh="clr-namespace:Agenda.Behaviors"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              x:Class="Agenda.Views.PersonaPage">
     <ContentPage.Content>
         <StackLayout Padding="10" BindingContext="{Binding Persona}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Label Text="Nombres"/>
+            <Entry Text="{Binding NombresRule.Value, Mode=TwoWay}" MaxLength="30" Placeholder="Ingrese sus nombres">
+                <Entry.Behaviors>
+                    <bh:EventToCommandBehavior EventName="Focused" Command="{Binding ValidateControlCommand}" 
+                                               CommandParameter="Nombres"/>
+                    <bh:EventToCommandBehavior EventName="Unfocused" Command="{Binding ValidateControlCommand}" 
+                                               CommandParameter="Nombres"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="{Binding NombresRule.Error, Mode=TwoWay}" TextColor="Red" HorizontalOptions="Center"
+                   FontSize="Small"/>
 
-                <Label Text="Nombres"/>
-                <Entry Grid.Column="1" Text="{Binding Persona.Nombres}"/>
+            <Label Text="Apellidos"/>
+            <Entry  Text="{Binding ApellidosRule.Value, Mode=TwoWay}" MaxLength="30" Placeholder="Ingrese sus apellidos">
+                <Entry.Behaviors>
+                    <bh:EventToCommandBehavior EventName="Focused" Command="{Binding ValidateControlCommand}" 
+                                               CommandParameter="Apellidos"/>
+                    <bh:EventToCommandBehavior EventName="Unfocused" Command="{Binding ValidateControlCommand}" 
+                                               CommandParameter="Apellidos"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="{Binding ApellidosRule.Error, Mode=TwoWay}" TextColor="Red" HorizontalOptions="Center"
+                   FontSize="Small"/>
 
-                <Label Text="Apellidos" Grid.Row="1" Grid.Column="0"/>
-                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Persona.Apellidos}"/>
+            <Label Text="Celular"/>
+            <Entry Keyboard="Numeric" Text="{Binding CelularRule.Value, Mode=TwoWay}"
+                       MaxLength="10" Placeholder="Ingrese su número de celular">
+                <Entry.Behaviors>
+                    <bh:EventToCommandBehavior EventName="Focused" Command="{Binding ValidateControlCommand}" 
+                                               CommandParameter="Celular"/>
+                    <bh:EventToCommandBehavior EventName="Unfocused" Command="{Binding ValidateControlCommand}" 
+                                               CommandParameter="Celular"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="{Binding CelularRule.Error, Mode=TwoWay}" TextColor="Red" HorizontalOptions="Center"
+                   FontSize="Small"/>
 
-                <Label Text="Celular" Grid.Row="2" Grid.Column="0"/>
-                <Entry Grid.Row="2" Grid.Column="1" Keyboard="Numeric" Text="{Binding Persona.Celular}"/>
+            <Label Text="Fecha de Nacimiento" Grid.Row="3" Grid.Column="0"/>
+            <DatePicker Date="{Binding Persona.DOB}"/>
 
-                <Label Text="Fecha Nacimiento" Grid.Row="3" Grid.Column="0"/>
-                <DatePicker Grid.Row="3" Grid.Column="1" Date="{Binding Persona.DOB}"/>
-            </Grid>
-            <Button Text="Guardar" Command="{Binding SaveCommand}"/>
-            <Button Text="Eliminar" IsVisible="{Binding IsDeleteVisible}" Command="{Binding DeleteCommand}"/>
+            <Button Text="Guardar" Command="{Binding SaveCommand}" StyleClass="Success"/>
+            <Button Text="Eliminar" IsVisible="{Binding IsDeleteVisible}" Command="{Binding DeleteCommand}"
+                    StyleClass="Danger"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

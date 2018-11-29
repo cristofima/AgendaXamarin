@@ -105,6 +105,21 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AgendaLogo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AgendaLogo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AgendaLogo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AgendaLogo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AgendaLogo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AgendaLogo.scale-100.png" />
+    <Content Include="Assets\AgendaLogo.scale-125.png" />
+    <Content Include="Assets\AgendaLogo.scale-150.png" />
+    <Content Include="Assets\AgendaLogo.scale-200.png" />
+    <Content Include="Assets\AgendaLogo.scale-400.png" />
+    <Content Include="Assets\AgendaLogo.targetsize-16.png" />
+    <Content Include="Assets\AgendaLogo.targetsize-24.png" />
+    <Content Include="Assets\AgendaLogo.targetsize-256.png" />
+    <Content Include="Assets\AgendaLogo.targetsize-32.png" />
+    <Content Include="Assets\AgendaLogo.targetsize-48.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
@@ -163,6 +178,12 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.2" />
+    <PackageReference Include="Xamarin.Forms.Theme.Base">
+      <Version>1.0.0.43-pre1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Theme.Light">
+      <Version>1.0.0.43-pre1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Agenda\Agenda.csproj">

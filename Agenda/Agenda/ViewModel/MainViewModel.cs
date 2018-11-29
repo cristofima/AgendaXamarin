@@ -18,6 +18,12 @@ namespace Agenda.ViewModel
             get;
             set;
         }
+
+        public PreferencesViewModel Preferences
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructores

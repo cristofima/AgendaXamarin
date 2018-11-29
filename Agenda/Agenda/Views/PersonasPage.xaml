@@ -4,6 +4,7 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              xmlns:bh="clr-namespace:Agenda.Behaviors"
              Title="Agenda"
+             xmlns:local="clr-namespace:Agenda"
              x:Class="Agenda.Views.PersonasPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem 
@@ -17,9 +18,11 @@
                 </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
+        <ToolbarItem Text="Preferencias" Order="Secondary" Command="{Binding PersonasLista.GoPreferencesCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding PersonasLista}">
+        <StackLayout BindingContext="{Binding PersonasLista}" 
+                     BackgroundColor="{Binding Source={x:Static local:AppSettings.BackgroundColor}}">
             <SearchBar HeightRequest="48"
                        Text="{Binding Filter,Mode=TwoWay}"
                        Placeholder="Buscar por nombres o apellidos"
@@ -34,8 +37,7 @@
 					  HasUnevenRows="true" 
                       IsPullToRefreshEnabled="True"
                       IsRefreshing="{Binding IsRefreshing,Mode=TwoWay}"
-                      RefreshCommand="{Binding RefreshCommand}"
-                      BackgroundColor="Silver">
+                      RefreshCommand="{Binding RefreshCommand}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

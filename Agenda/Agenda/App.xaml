@@ -2,10 +2,12 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:infra="clr-namespace:Agenda.Infrastructure"
+             xmlns:light="clr-namespace:Xamarin.Forms.Themes;assembly=Xamarin.Forms.Theme.Light"
              x:Class="Agenda.App">
     <Application.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary MergedWith="light:LightThemeResources">
             <infra:InstanceLocator  x:Key="Locator"/>
+                
         </ResourceDictionary>
     </Application.Resources>
 </Application>

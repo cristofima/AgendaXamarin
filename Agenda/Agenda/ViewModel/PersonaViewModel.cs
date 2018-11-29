@@ -4,9 +4,6 @@ using Agenda.Models;
 using Agenda.Validators;
 using GalaSoft.MvvmLight.Command;
 using Plugin.ValidationRules;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -15,6 +12,7 @@ namespace Agenda.ViewModel
     public class PersonaViewModel : BaseViewModel
     {
         #region Validaciones
+
         private ValidationUnit ValidationUnit;
         public ValidatableObject<string> NombresRule { get; set; }
         public ValidatableObject<string> ApellidosRule { get; set; }
@@ -29,15 +27,21 @@ namespace Agenda.ViewModel
             this.ValidationUnit = new ValidationUnit(NombresRule, ApellidosRule, CelularRule);
 
             NombresRule.Validations.Add(new IsNullOrEmpty<string> { ValidationMessage = "Los nombres son obligatorios." });
+            NombresRule.Validations.Add(new PersonNames<string> { ValidationMessage = "Los nombres no coinciden con el formato." });
+
             ApellidosRule.Validations.Add(new IsNullOrEmpty<string> { ValidationMessage = "Los apellidos son obligatorios." });
+            ApellidosRule.Validations.Add(new PersonNames<string> { ValidationMessage = "Los apellidos no coinciden con el formato." });
+
             CelularRule.Validations.Add(new IsNullOrEmpty<string> { ValidationMessage = "El celular es obligatorio." });
+            CelularRule.Validations.Add(new Cellphone<string> { ValidationMessage = "El celular no coincide con el formato." });
         }
 
         private bool ValidateForm()
         {
             return this.ValidationUnit.Validate();
         }
-        #endregion
+
+        #endregion Validaciones
 
         #region Servicios
 
@@ -46,10 +50,13 @@ namespace Agenda.ViewModel
         #endregion Servicios
 
         #region Atributos
+
         private Persona persona;
-        #endregion
+
+        #endregion Atributos
 
         #region Propiedaes
+
         public bool IsDeleteVisible { get; set; }
 
         public Persona Persona
@@ -63,10 +70,14 @@ namespace Agenda.ViewModel
                 SetValue(ref this.persona, value);
             }
         }
-        #endregion
+
+        #endregion Propiedaes
 
         #region Constructores
-        public PersonaViewModel() : this(null) { }
+
+        public PersonaViewModel() : this(null)
+        {
+        }
 
         public PersonaViewModel(Persona per)
         {
@@ -82,10 +93,16 @@ namespace Agenda.ViewModel
             this.InitValidations();
             this.SetDataValidate();
             _sqliteService = new SQliteService();
+
+            this.ValidateControlCommand = new Command<string>(ValidateControl);
         }
-        #endregion
+
+        #endregion Constructores
 
         #region Comandos
+
+        public ICommand ValidateControlCommand { get; private set; }
+
         public ICommand SaveCommand
         {
             get
@@ -101,9 +118,28 @@ namespace Agenda.ViewModel
                 return new RelayCommand(Delete);
             }
         }
-        #endregion
+
+        #endregion Comandos
 
         #region Métodos
+
+        private void ValidateControl(string control)
+        {
+            switch (control)
+            {
+                case "Nombres":
+                    this.NombresRule.Validate();
+                    break;
+                case "Apellidos":
+                    this.ApellidosRule.Validate();
+                    break;
+                case "Celular":
+                    this.CelularRule.Validate();
+                    break;
+                default:
+                    break;
+            }
+        }
 
         private void SetDataValidate()
         {
@@ -121,9 +157,9 @@ namespace Agenda.ViewModel
 
         private async void Save()
         {
-            if (!string.IsNullOrEmpty(this.Persona.Nombres) && !string.IsNullOrEmpty(this.Persona.Apellidos)
-                && !string.IsNullOrEmpty(this.Persona.Celular))
+            if (this.ValidateForm())
             {
+                this.SetDataPersonaFromRules();
                 await _sqliteService.SavePersonaAsync(this.Persona);
                 MessagingCenter.Send<string>("App", "ResetList");
                 DependencyService.Get<IMessage>().ShortAlert($"Los datos de la persona {this.Persona.Nombres} {this.Persona.Apellidos} fueron " +
@@ -150,6 +186,7 @@ namespace Agenda.ViewModel
                 await Application.Current.MainPage.Navigation.PopAsync();
             }
         }
-        #endregion
+
+        #endregion Métodos
     }
 }
