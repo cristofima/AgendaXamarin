@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="Preferencias"
+              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              x:Class="Agenda.Views.PreferencesPage">
     <ContentPage.Content>
         <StackLayout Padding="10" BindingContext="{Binding Preferences}">
-            <Picker ItemsSource="{Binding ColorList}" SelectedItem="{Binding ColorActual, Mode=TwoWay}"
-                    Title="Seleccione el color de fondo"/>
-            <Button Text="Guardar" Command="{Binding SaveCommand}" StyleClass="Success"/>
+            <Picker Title="Seleccione el color de fondo"
+                    ItemsSource="{Binding ColorList}" SelectedItem="{Binding ColorActual}"/>
+            <Button Text="Guardar" Command="{Binding SaveCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -76,11 +76,6 @@ namespace Agenda.ViewModel
         }
 
         #region Metodos
-        private async void GoPreferences()
-        {
-            MainViewModel.GetInstance().Preferences = new PreferencesViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new PreferencesPage());
-        }
 
         private async void ResetList()
         {
@@ -168,6 +163,12 @@ namespace Agenda.ViewModel
         {
             MainViewModel.GetInstance().Persona = new PersonaViewModel();
             await Application.Current.MainPage.Navigation.PushAsync(new PersonaPage());
+        }
+
+        private async void GoPreferences()
+        {
+            MainViewModel.GetInstance().Preferences = new PreferencesViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new PreferencesPage());
         }
 
         #endregion Comandos

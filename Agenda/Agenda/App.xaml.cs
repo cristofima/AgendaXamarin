@@ -11,6 +11,7 @@ namespace Agenda
         public App()
         {
             InitializeComponent();
+            App.Current.Resources["backgroundColor"] = AppSettings.BackgroundColor;
 
             MainPage = new NavigationPage(new PersonasPage());
         }

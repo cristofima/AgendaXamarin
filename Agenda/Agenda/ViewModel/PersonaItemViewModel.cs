@@ -1,4 +1,5 @@
-﻿using Agenda.Models;
+﻿using Agenda.Helpers;
+using Agenda.Models;
 using Agenda.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -23,9 +24,35 @@ namespace Agenda.ViewModel
                 return new RelayCommand(GoItem);
             }
         }
+
+        public ICommand CallCommand
+        {
+            get
+            {
+                return new RelayCommand(Call);
+            }
+        }
+
+        public ICommand SMSCommand
+        {
+            get
+            {
+                return new RelayCommand(SMS);
+            }
+        }
         #endregion
 
         #region Métodos
+        private void Call()
+        {
+            Plugins.PlacePhoneCall(this.Celular);
+        }
+
+        private async void SMS()
+        {
+            await Plugins.SendSms("Test prueba", new string[] { this.Celular });
+        }
+
         private async void GoItem()
         {
             MainViewModel.GetInstance().Persona = new PersonaViewModel(this);

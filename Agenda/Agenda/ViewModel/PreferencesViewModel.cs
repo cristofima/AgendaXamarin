@@ -54,6 +54,7 @@ namespace Agenda.ViewModel
         private async void Save()
         {
             Preferences.Set("BackgroundColor", this.ColorActual);
+            App.Current.Resources["backgroundColor"] = AppSettings.BackgroundColor;
             DependencyService.Get<IMessage>().ShortAlert("Preferencias guardadas");
             await Application.Current.MainPage.Navigation.PopAsync();
         }

@@ -2,11 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Datos de la Persona"
+             xmlns:local="clr-namespace:Agenda"
              xmlns:bh="clr-namespace:Agenda.Behaviors"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              x:Class="Agenda.Views.PersonaPage">
     <ContentPage.Content>
-        <StackLayout Padding="10" BindingContext="{Binding Persona}">
+        <StackLayout Padding="10" BindingContext="{Binding Persona}" 
+                     BackgroundColor="{Binding Source={x:Static local:AppSettings.BackgroundColor}}">
             <Label Text="Nombres"/>
             <Entry Text="{Binding NombresRule.Value, Mode=TwoWay}" MaxLength="30" Placeholder="Ingrese sus nombres">
                 <Entry.Behaviors>

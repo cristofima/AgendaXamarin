@@ -4,7 +4,6 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              xmlns:bh="clr-namespace:Agenda.Behaviors"
              Title="Agenda"
-             xmlns:local="clr-namespace:Agenda"
              x:Class="Agenda.Views.PersonasPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem 
@@ -21,8 +20,7 @@
         <ToolbarItem Text="Preferencias" Order="Secondary" Command="{Binding PersonasLista.GoPreferencesCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding PersonasLista}" 
-                     BackgroundColor="{Binding Source={x:Static local:AppSettings.BackgroundColor}}">
+        <StackLayout BindingContext="{Binding PersonasLista}" Style="{DynamicResource BackgroundStyle}">
             <SearchBar HeightRequest="48"
                        Text="{Binding Filter,Mode=TwoWay}"
                        Placeholder="Buscar por nombres o apellidos"
@@ -51,6 +49,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
 
                                     <StackLayout Grid.Column="0">
@@ -62,7 +61,30 @@
                                         <Label Text="{Binding Celular}" Grid.Column="1"/>
                                         <Label Text="{Binding DOB, StringFormat='{0:yyyy-MM-dd}'}"/>
                                     </StackLayout>
-
+                                    
+                                    <StackLayout Grid.Column="2">
+                                        <ImageButton 
+                                                 Command="{Binding CallCommand}"
+                                                 WidthRequest="35">
+                                            <ImageButton.Source>
+                                                <OnPlatform x:TypeArguments="ImageSource">
+                                                    <On Platform="Android, iOS" Value="celular" />
+                                                    <On Platform="UWP" Value="Assets/celular.png" />
+                                                </OnPlatform>
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                        <ImageButton 
+                                                 Command="{Binding SMSCommand}"
+                                                 WidthRequest="35">
+                                            <ImageButton.Source>
+                                                <OnPlatform x:TypeArguments="ImageSource">
+                                                    <On Platform="Android, iOS" Value="mensaje" />
+                                                    <On Platform="UWP" Value="Assets/mensaje.png" />
+                                                </OnPlatform>
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                    </StackLayout>
+                                    
                                 </Grid>
                             </Frame>
                         </ViewCell>
