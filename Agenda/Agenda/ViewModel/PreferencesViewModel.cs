@@ -1,8 +1,5 @@
 ﻿using Agenda.Interfaces;
-using GalaSoft.MvvmLight.Command;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -41,15 +38,10 @@ namespace Agenda.ViewModel
                  "White",  "Yellow"
             };
             this.ColorActual = Preferences.Get("BackgroundColor", "White");
+            this.SaveCommand = new Command(Save);
         }
 
-        public ICommand SaveCommand
-        {
-            get
-            {
-                return new RelayCommand(Save);
-            }
-        }
+        public ICommand SaveCommand { get; private set; }
 
         private async void Save()
         {

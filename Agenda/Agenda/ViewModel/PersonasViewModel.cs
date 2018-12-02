@@ -1,14 +1,11 @@
 ﻿using Agenda.Interfaces;
 using Agenda.Models;
 using Agenda.Views;
-using GalaSoft.MvvmLight.Command;
-using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Agenda.ViewModel
 {
@@ -29,6 +26,7 @@ namespace Agenda.ViewModel
         #endregion Atributos
 
         #region Propiedades
+
         private List<Persona> PeopleList { get; set; }
 
         private bool IsRefreshing
@@ -42,6 +40,7 @@ namespace Agenda.ViewModel
                 SetValue(ref isRefreshing, value);
             }
         }
+
         public string Filter
         {
             get
@@ -73,6 +72,11 @@ namespace Agenda.ViewModel
 
             this.ResetList();
             this.InitEventos();
+
+            this.GoPreferencesCommand = new Command(GoPreferences);
+            this.AddCommand = new Command(GoPersona);
+            this.SearchCommand = new Command(FilterList);
+            this.RefreshCommand = new Command(ResetList);
         }
 
         #region Metodos
@@ -123,41 +127,19 @@ namespace Agenda.ViewModel
                 }
             }
         }
-        #endregion
+
+        #endregion Metodos
 
         #region Comandos
 
-        public ICommand GoPreferencesCommand
-        {
-            get
-            {
-                return new RelayCommand(GoPreferences);
-            }
-        }
+        public ICommand GoPreferencesCommand { get; private set; }
 
-        public ICommand AddCommand
-        {
-            get
-            {
-                return new RelayCommand(GoPersona);
-            }
-        }
+        public ICommand AddCommand { get; private set; }
 
-        public ICommand SearchCommand
-        {
-            get
-            {
-                return new RelayCommand(FilterList);
-            }
-        }
 
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                return new RelayCommand(ResetList);
-            }
-        }
+        public ICommand SearchCommand { get; private set; }
+
+        public ICommand RefreshCommand { get; private set; }
 
         private async void GoPersona()
         {
@@ -174,6 +156,7 @@ namespace Agenda.ViewModel
         #endregion Comandos
 
         #region Eventos
+
         private void InitEventos()
         {
             MessagingCenter.Subscribe<string>("App", "ResetList", (sender) =>
@@ -181,8 +164,7 @@ namespace Agenda.ViewModel
                 this.ResetList();
             });
         }
-        #endregion
 
-
+        #endregion Eventos
     }
 }

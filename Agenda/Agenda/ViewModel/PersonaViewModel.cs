@@ -2,7 +2,6 @@
 using Agenda.Interfaces;
 using Agenda.Models;
 using Agenda.Validators;
-using GalaSoft.MvvmLight.Command;
 using Plugin.ValidationRules;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -94,6 +93,7 @@ namespace Agenda.ViewModel
             this.SetDataValidate();
             _sqliteService = new SQliteService();
 
+            this.InitCommand();
             this.ValidateControlCommand = new Command<string>(ValidateControl);
         }
 
@@ -103,25 +103,19 @@ namespace Agenda.ViewModel
 
         public ICommand ValidateControlCommand { get; private set; }
 
-        public ICommand SaveCommand
-        {
-            get
-            {
-                return new RelayCommand(Save);
-            }
-        }
+        public ICommand SaveCommand { get; private set; }
 
-        public ICommand DeleteCommand
-        {
-            get
-            {
-                return new RelayCommand(Delete);
-            }
-        }
+        public ICommand DeleteCommand { get; private set; }
 
         #endregion Comandos
 
         #region Métodos
+
+        private void InitCommand()
+        {
+            this.SaveCommand = new Command(Save);
+            this.DeleteCommand = new Command(Delete);
+        }
 
         private void ValidateControl(string control)
         {
@@ -130,12 +124,15 @@ namespace Agenda.ViewModel
                 case "Nombres":
                     this.NombresRule.Validate();
                     break;
+
                 case "Apellidos":
                     this.ApellidosRule.Validate();
                     break;
+
                 case "Celular":
                     this.CelularRule.Validate();
                     break;
+
                 default:
                     break;
             }
